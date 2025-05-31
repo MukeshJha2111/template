@@ -5,13 +5,14 @@ import {
   Chip,
   Button,
   Stack,
-  Grid,
   Paper,
+  Grid
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { sanityClient } from '../lib/sanityClient';
 import { Product } from '../types/Product';
+
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -54,7 +55,7 @@ const ProductDetails = () => {
     <Container sx={{ mt: 6, mb: 8 }}>
       <Grid container spacing={6}>
         {/* ✅ Product Image */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{xs:12, md:6}}>
           <Paper
             elevation={3}
             sx={{
@@ -81,7 +82,7 @@ const ProductDetails = () => {
         </Grid>
 
         {/* ✅ Product Info */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{xs:12, md:6}}>
           <Typography variant="h4" fontWeight={700} gutterBottom>
             {product.title}
           </Typography>
@@ -120,7 +121,7 @@ const ProductDetails = () => {
           </Stack>
 
           {/* Tags */}
-          {product.tags?.length > 0 && (
+          {Array.isArray(product.tags) && product.tags.length > 0 && (
             <Stack direction="row" spacing={1} sx={{ mt: 3, flexWrap: 'wrap' }}>
               {product.tags.map((tag, index) => (
                 <Chip key={index} label={tag} size="small" />
@@ -138,7 +139,7 @@ const ProductDetails = () => {
           </Typography>
           <Grid container spacing={3}>
             {related.map((item) => (
-              <Grid item xs={12} sm={6} md={3} key={item._id}>
+              <Grid size={{xs:12, sm:6, md: 3}} key={item._id}>
                 <Box
                   sx={{
                     border: '1px solid #eee',
