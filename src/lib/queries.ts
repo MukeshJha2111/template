@@ -27,3 +27,17 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
   mapEmbed
 }`;
 
+export const featuredProductsQuery = `*[_type == "product" && isFeatured == true]{
+  _id,
+  title,
+  description,
+  price,
+  "imageUrl": images[0].asset->url,
+  category->{
+    name
+  },
+  slug,
+  tags
+}`;
+
+

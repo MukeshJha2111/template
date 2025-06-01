@@ -1,85 +1,71 @@
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Box,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Product } from '../types/Product';
-import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
 
-
-type Props = {
-  product: Product;
-};
-
-const ProductCard = ({ product }: Props) => {
-  return (
-    <Card
+const ProductCard = ({ product }: { product: Product }) => (
+  <Box
+    sx={{
+      p: 2,
+      borderRadius: 3,
+      boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+      backgroundColor: '#fff',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+      height: 340,
+    }}
+  >
+    {/* Image */}
+    <Box
+      component="img"
+      src={product.imageUrl}
+      alt={product.title}
       sx={{
-        borderRadius: 3,
-        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-        transition: 'transform 0.2s ease',
-        '&:hover': {
-          transform: 'scale(1.02)',
-        },
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%', // Make card take full height
+        width: '100%',
+        height: 180,
+        objectFit: 'cover',
+        borderRadius: 2,
+        mb: 2,
+      }}
+    />
+
+    {/* Title */}
+    <Typography
+      variant="subtitle1"
+      sx={{
+        fontWeight: 600,
+        mb: 0.5,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        width: '100%',
       }}
     >
-      {product.imageUrl && (
-        <CardMedia
-          component="img"
-          height="180"
-          image={product.imageUrl}
-          alt={product.title}
-          sx={{ objectFit: 'cover' }}
-        />
-      )}
+      {product.title}
+    </Typography>
 
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Typography variant="h6" fontWeight={600} gutterBottom noWrap>
-          {product.title}
-        </Typography>
+    {/* Price */}
+    <Typography sx={{ color: '#3e2723', mb: 2 }}>₹ {product.price}</Typography>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            mb: 2,
-          }}
-        >
-          {product.description}
-        </Typography>
-
-        <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="subtitle1" fontWeight={700} color="primary">
-            ${product.price}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {product.category?.name}
-          </Typography>
-        </Box>
-        <Button
-  component={Link}
-  to={product.slug?.current ? `/product/${product.slug.current}` : '#'}
-  variant="outlined"
-  fullWidth
-  disabled={!product.slug?.current}
-  sx={{ mt: 2 }}
->
-  View Details
-</Button>
-
-      </CardContent>
-    </Card>
-  );
-};
+    {/* Button */}
+    <Box
+      component="button"
+      sx={{
+        backgroundColor: '#3e2723',
+        color: '#fff',
+        border: 'none',
+        padding: '10px 28px',
+        borderRadius: '6px',
+        fontSize: '15px',
+        cursor: 'pointer',
+        mt: 'auto',
+        width: '100%',
+        maxWidth: 160,
+      }}
+    >
+      View
+    </Box>
+  </Box>
+);
 
 export default ProductCard;

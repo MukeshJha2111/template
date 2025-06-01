@@ -1,59 +1,77 @@
-// src/components/Footer.tsx
-
-import { Box, Typography, Link, Container, Stack } from '@mui/material';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
+import { Box, Typography, IconButton, Link } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { SiteSettings } from '../types/SiteSettings';
 
-type Props = {
-  siteSettings: SiteSettings;
-};
+const Footer = ({ siteSettings }: { siteSettings: SiteSettings }) => (
+  <Box
+    sx={{
+      background: 'linear-gradient(135deg, #5d4037 0%, #3e2723 100%)',
+      color: '#fff',
+      pt: 6,
+      pb: 4,
+      mt: 8,
+      textAlign: 'center',
+      px: { xs: 2, sm: 0 },
+    }}
+  >
+    <Typography variant="subtitle2" sx={{ mb: 1, opacity: 0.8 }}>
+      Contact Us
+    </Typography>
+    <Typography variant="body1" sx={{ mb: 2 }}>
+      📞 {siteSettings.contactPhone}
+    </Typography>
+    <Typography variant="h6" sx={{ mb: 3 }}>
+      {siteSettings.address}
+    </Typography>
 
-const Footer = ({ siteSettings }: Props) => {
-  return (
-    <Box sx={{ backgroundColor: '#f1f3f6', mt: 8, pt: 4, pb: 4 }}>
-      <Container maxWidth="md">
-        <Stack spacing={2}>
-          {siteSettings.contactPhone && (
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <PhoneIcon color="primary" />
-              <Typography variant="body1">{siteSettings.contactPhone}</Typography>
-            </Stack>
-          )}
+    {siteSettings.mapEmbed && (
+      <Box
+        sx={{
+          maxWidth: 600,
+          mx: 'auto',
+          borderRadius: 3,
+          overflow: 'hidden',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          height: { xs: 150, sm: 200 },
+          mb: 4,
+        }}
+      >
+        <iframe
+          src={siteSettings.mapEmbed}
+          width="100%"
+          height="100%"
+          style={{ border: 0, borderRadius: 12 }}
+          loading="lazy"
+          allowFullScreen
+          title="Location Map"
+        />
+      </Box>
+    )}
 
-          {siteSettings.whatsappLink && (
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <WhatsAppIcon color="success" />
-              <Link href={siteSettings.whatsappLink} target="_blank" underline="hover">
-                <Typography variant="body1">Chat on WhatsApp</Typography>
-              </Link>
-            </Stack>
-          )}
-
-          {siteSettings.address && (
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <LocationOnIcon color="error" />
-              <Typography variant="body1">{siteSettings.address}</Typography>
-            </Stack>
-          )}
-
-          {siteSettings.mapEmbed && (
-            <Box sx={{ mt: 2 }}>
-              <iframe
-                src={siteSettings.mapEmbed}
-                width="100%"
-                height="200"
-                style={{ border: 0, borderRadius: 8 }}
-                loading="lazy"
-                allowFullScreen
-              ></iframe>
-            </Box>
-          )}
-        </Stack>
-      </Container>
+    <Box sx={{ mb: 3 }}>
+      <Link href="https://facebook.com" target="_blank" rel="noopener" color="inherit">
+        <IconButton aria-label="Facebook" sx={{ color: '#fff' }}>
+          <FacebookIcon />
+        </IconButton>
+      </Link>
+      <Link href="https://instagram.com" target="_blank" rel="noopener" color="inherit">
+        <IconButton aria-label="Instagram" sx={{ color: '#fff' }}>
+          <InstagramIcon />
+        </IconButton>
+      </Link>
+      <Link href="https://twitter.com" target="_blank" rel="noopener" color="inherit">
+        <IconButton aria-label="Twitter" sx={{ color: '#fff' }}>
+          <TwitterIcon />
+        </IconButton>
+      </Link>
     </Box>
-  );
-};
+
+    <Typography variant="caption" sx={{ opacity: 0.6 }}>
+      © {new Date().getFullYear()} Crockery Store. All rights reserved.
+    </Typography>
+  </Box>
+);
 
 export default Footer;
